@@ -1,11 +1,10 @@
-import { Heading } from "@chakra-ui/react";
 import React from "react";
 import CreatePatternForm from "./CreatePatternForm";
 
 export default function CreatePattern() {
   return (
     <div>
-      <Heading>Create new pattern</Heading>
+      <h1>Create new pattern</h1>
       <CreatePatternForm></CreatePatternForm>
     </div>
   );

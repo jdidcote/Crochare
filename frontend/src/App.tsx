@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Nav from "./components/Nav.js";
 import CreatePattern from "./pages/patterns/create-patterns/index.jsx";
+import Router from "./pages/Router.js";
 
 function App() {
   return (
     <div className="px-32">
       <Nav></Nav>
-      <CreatePattern></CreatePattern>
+      <Router />
     </div>
   );
 }

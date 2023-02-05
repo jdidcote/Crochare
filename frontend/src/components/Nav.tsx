@@ -6,7 +6,7 @@ const Nav: React.FC = () => {
     <Navbar fluid={true} rounded={true}>
       <Navbar.Brand to="/navbars">
         <a
-          href="#"
+          href="/"
           className="self-center whitespace-nowrap text-2xl font-semibold dark:text-white"
         >
           Crochare
@@ -15,18 +15,18 @@ const Nav: React.FC = () => {
       <Navbar.Toggle />
       <Navbar.Collapse>
         <div className="flex items-center">
-          <Navbar.Link href="/navbars" active={true}>
+          <Navbar.Link href="/" active={true}>
             Home
           </Navbar.Link>
         </div>
         <div className="flex items-center">
-          <Navbar.Link href="/navbars">Browse</Navbar.Link>
+          <Navbar.Link href="/browse">Browse</Navbar.Link>
         </div>
         <div className="flex items-center">
-          <Navbar.Link href="/navbars">Create</Navbar.Link>
+          <Navbar.Link href="/create">Create</Navbar.Link>
         </div>
         <div className="flex md:order-2">
-          <Button size="sm" gradientDuoTone="purpleToBlue" outline={true}>
+          <Button size="sm" gradientDuoTone="purpleToBlue">
             Log in
           </Button>
         </div>

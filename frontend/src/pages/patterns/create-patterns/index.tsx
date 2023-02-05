@@ -1,11 +1,11 @@
 import React from "react";
 
-import CreatePatternForm from "../../../components/CreatePattern/CreatePatternForm";
+import CreatePattern from "../../../components/CreatePattern/CreatePattern";
 
-export default function CreatePattern() {
+export default function Create() {
   return (
     <div>
-      <CreatePatternForm></CreatePatternForm>
+      <CreatePattern></CreatePattern>
     </div>
   );
 }
