@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from "react";
-import {
-  Text,
-  Textarea,
-  Input,
-  useEditable,
-  Select,
-  Button,
-} from "@chakra-ui/react";
 import { getApiPath } from "../../utils";
 
 interface NewPatternForm {
@@ -48,7 +40,7 @@ const CreatePatternForm: React.FC = () => {
 
   return (
     <div>
-      <Text>Pattern Name</Text>
+      {/* <Text>Pattern Name</Text>
       <Input></Input>
       <Text>Skill Level</Text>
       <Select>
@@ -74,7 +66,7 @@ const CreatePatternForm: React.FC = () => {
       <Textarea placeholder="The equipment needed for the pattern"></Textarea>
       <Text>Details</Text>
       <Textarea placeholder="Guage, finish, size etc."></Textarea>
-      <Button colorScheme="teal">Save</Button>
+      <Button colorScheme="teal">Save</Button> */}
     </div>
   );
 };

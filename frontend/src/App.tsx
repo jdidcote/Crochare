@@ -1,11 +1,11 @@
 import { useState } from "react";
-import Navbar from "./components/CreatePattern/Navbar.js";
+import Nav from "./components/Nav.js";
 import CreatePattern from "./pages/patterns/create-patterns/index.jsx";
 
 function App() {
   return (
-    <div className="App">
-      <Navbar></Navbar>
+    <div className="px-32">
+      <Nav></Nav>
       <CreatePattern></CreatePattern>
     </div>
   );
