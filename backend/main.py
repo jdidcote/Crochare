@@ -3,8 +3,11 @@ from fastapi import FastAPI
 from starlette.middleware.cors import CORSMiddleware
 
 from models.models import Region, SkillLevels
+from backend.sql_app.main import app as sql_app
 
 app = FastAPI(title="Crochare")
+
+app.include_router(sql_app)
 
 origins = [
     "http://localhost:5173",
