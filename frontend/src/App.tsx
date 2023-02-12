@@ -5,7 +5,7 @@ import Router from "./pages/Router.js";
 
 function App() {
   return (
-    <div className="px-32">
+    <div className="max-w-full w-sm md:px-36">
       <Nav></Nav>
       <Router />
     </div>
