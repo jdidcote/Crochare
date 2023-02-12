@@ -15,28 +15,23 @@ const LoginHelpLink = (props: LoginHelpProps) => {
 
 const SignUpText: React.FC = () => {
   const signUpLink = (): JSX.Element => {
-    return <LoginHelpLink text="Sign up" link=""></LoginHelpLink>;
+    return <LoginHelpLink text="Sign up" link="/register"></LoginHelpLink>;
   };
   return (
     <div className="text-sm flex pt-4">
-      <p>New to crochare? {signUpLink()}</p>
+      <p>New to Crochare? {signUpLink()}</p>
     </div>
   );
 };
 
 const ForgotCredentials: React.FC = () => {
-  const userNameLink = (): JSX.Element => (
-    <LoginHelpLink text="username" link=""></LoginHelpLink>
-  );
   const passwordLink = (): JSX.Element => (
     <LoginHelpLink text="password" link=""></LoginHelpLink>
   );
 
   return (
     <div className="text-sm">
-      <p>
-        Forgot your {userNameLink()} or {passwordLink()}?
-      </p>
+      <p>Forgot your {passwordLink()}?</p>
     </div>
   );
 };
@@ -51,7 +46,7 @@ const LoginPage: React.FC = () => {
         <TextInput
           id="email1"
           type="email"
-          placeholder="name@flowbite.com"
+          placeholder="example@domain.com"
           required={true}
         />
       </div>
