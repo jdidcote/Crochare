@@ -1,6 +1,13 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import React, { useState } from "react";
 import { FormEncType } from "react-router-dom";
+import { getApiPath } from "../../utils";
+
+interface CreateUserRequestBody {
+  email: string;
+  username: string;
+  password: string;
+}
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState<string>("");
@@ -20,8 +27,27 @@ const Register: React.FC = () => {
     return password1 === password2;
   };
 
+  const createNewUser = async () => {
+    const requestBody: CreateUserRequestBody = {
+      email,
+      username,
+      password: password1,
+    };
+
+    const requestOptions: Object = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(requestBody),
+    };
+    fetch(getApiPath("/users/"), requestOptions)
+      .then((e) => e.json())
+      .then(console.log);
+  };
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    // TODO: Add logic to display a succesful account creation instead of the form (isUserCreated state)
     event.preventDefault();
+    createNewUser();
   };
 
   return (
