@@ -26,9 +26,11 @@ const Nav: React.FC = () => {
           <Navbar.Link href="/create">Create</Navbar.Link>
         </div>
         <div className="flex md:order-2">
-          <Button size="sm" gradientDuoTone="purpleToBlue">
-            Log in
-          </Button>
+          <Navbar.Link href="/login">
+            <Button size="sm" gradientDuoTone="purpleToBlue">
+              Log in
+            </Button>
+          </Navbar.Link>
         </div>
       </Navbar.Collapse>
     </Navbar>
