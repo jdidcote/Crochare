@@ -15,7 +15,7 @@ def login_user(request):
             return redirect("/")
         else:
             messages.success(request, "There was an issue logging in, try again.")
-            return redirect("login_user")
+            return redirect("login-user")
     else:
         return render(request, "accounts/login.html", {})
 
@@ -37,6 +37,6 @@ def register_user(request):
             return redirect("/")
         except ValueError:
             messages.success(request, "There was an issue creating an account, try again.")
-            return redirect("register_user")
+            return redirect("register-user")
 
     return render(request, "accounts/register.html", {})

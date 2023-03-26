@@ -3,7 +3,7 @@
 {% block content %}
     <div class="hero is-fullheight-with-navbar">
         <div class="hero-body is-justify-content-center is-align-items-center border">
-            <form action="/accounts/login_user" method="post">
+            <form action="/accounts/login-user" method="post">
                 {% csrf_token %}
                 <div class="columns is-flex is-flex-direction-column box">
                     <div class="has-text-centered">
@@ -29,7 +29,7 @@
                         <button class="button is-primary is-fullwidth" type="submit">Login</button>
                     </div>
                     <div class="has-text-centered">
-                        <p class="is-size-7"> New to Crochare <a href="/accounts/register_user" class="has-text-primary">Sign up</a>
+                        <p class="is-size-7"> New to Crochare <a href="/accounts/register-user" class="has-text-primary">Sign up</a>
                         </p>
                     </div>
                 </div>
