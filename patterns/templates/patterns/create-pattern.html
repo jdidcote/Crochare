@@ -1,13 +1,11 @@
 {% extends 'base.html' %}
 
-{#<form action="/your-name/" method="post">#}
-{#    {% csrf_token %}#}
-{#    {{ form }}#}
-{#    <input type="submit" value="Submit">#}
-{#</form>#}
+
+{#TODO: Update the layout using tiles?#}
+{#https://bulma.io/documentation/layout/tiles/#}
 
 {% block content %}
-    <div class="hero is-halfheight-with-navbar">
+    <div class="hero is-fullheight-with-navbar">
       {% if not user.is_authenticated %}
         <div class="notification is-primary is-light has-text-centered">
           <h1>Please log in or register to create a pattern</h1>
@@ -20,6 +18,7 @@
                     <div class="has-text-centered">
                         <h3 class="is-size-4 has-text-weight-medium">New pattern</h3>
                     </div>
+
                     <div class="column has-text-danger has-text-centered">
                         {% if messages %}
                             {% for message in messages %}
@@ -27,6 +26,7 @@
                             {% endfor %}
                         {% endif %}
                     </div>
+
                     <div class="column">
                         <label for="pattern-name">Pattern name</label>
                         <input class="input is-primary" type="text" name="title" id="pattern-name">
@@ -77,7 +77,7 @@
 
                     <div class="column">
                       <label for="pattern-pattern-steps">Pattern steps</label>
-                      <input class="textarea is-primary" name="pattern" id="pattern-pattern-steps">
+                      <textarea class="textarea is-primary" name="pattern" id="pattern-pattern-steps"></textarea>
                       <p class="help">This needs to describe what actually goes here...</p>
                     </div>
 
