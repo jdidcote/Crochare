@@ -36,5 +36,4 @@ class CrochetPatternForm(ModelForm):
     class Meta:
         model = CrochetPattern
         fields = ['title', 'description', 'skill_level', 'region', 'yarn_weight',
-                  'hook_size', 'gauge', 'pattern',
-                  'image']
+                  'hook_size', 'gauge', 'pattern', 'image']
