@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{#<form action="/your-name/" method="post">#}
+{#    {% csrf_token %}#}
+{#    {{ form }}#}
+{#    <input type="submit" value="Submit">#}
+{#</form>#}
+
+{% block content %}
+    <div class="hero is-halfheight-with-navbar">
+      {% if not user.is_authenticated %}
+        <div class="notification is-primary is-light has-text-centered">
+          <h1>Please log in or register to create a pattern</h1>
+        </div>
+      {% else %}
+        <div class="hero-body is-justify-content-center is-align-items-center border">
+            <form action="/patterns/create-pattern" method="post">
+                {% csrf_token %}
+                <div class="columns is-flex is-flex-direction-column box">
+                    <div class="has-text-centered">
+                        <h3 class="is-size-4 has-text-weight-medium">New pattern</h3>
+                    </div>
+                    <div class="column has-text-danger has-text-centered">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="column">
+                        <label for="pattern-name">Pattern name</label>
+                        <input class="input is-primary" type="text" name="title" id="pattern-name">
+                    </div>
+
+                    <div class="column">
+                        <label for="pattern-description">Pattern description</label>
+                        <textarea class="textarea is-primary" name="description" id="pattern-description"></textarea>
+                    </div>
+
+                    <div class="column">
+                        <label for="pattern-image">Pattern image</label>
+                        <input class="input is-primary" type="file" name="image" id="pattern-image">
+                    </div>
+
+                    <div class="column">
+                        <label for="pattern-skill-level">Skill level</label>
+                        <select class="input is-primary" name="skill_level" id="pattern-skill-level">
+                            {% for skill in skill_level_options %}
+                                <option value="{{ skill.value }}">{{ skill.text }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="column">
+                        <label for="pattern-region">Region</label>
+                        <select class="input is-primary" name="region" id="pattern-region">
+                            {% for region in region_options %}
+                                <option value="{{ region.value }}">{{ region.text }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="column">
+                      <label for="pattern-yarn-weight">Yarn weight</label>
+                      <input class="input is-primary" type="text" name="yarn_weight" id="pattern-yarn-weight">
+                    </div>
+
+                    <div class="column">
+                      <label for="pattern-hook-size">Hook size</label>
+                      <input class="input is-primary" type="text" name="hook_size" id="pattern-hook-size">
+                    </div>
+
+                    <div class="column">
+                      <label for="pattern-gauge">Guage</label>
+                      <input class="input is-primary" type="text" name="gauge" id="pattern-gauge">
+                    </div>
+
+                    <div class="column">
+                      <label for="pattern-pattern-steps">Pattern steps</label>
+                      <input class="textarea is-primary" name="pattern" id="pattern-pattern-steps">
+                      <p class="help">This needs to describe what actually goes here...</p>
+                    </div>
+
+                    <div class="column">
+                        <button class="button is-primary is-fullwidth" type="submit">Save pattern</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% endif %}
+
+{% endblock %}

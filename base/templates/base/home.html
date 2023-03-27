@@ -1,4 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
+  {% if messages %}
+      <div class="notification is-primary is-light has-text-centered">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+      </div>
+  {% endif %}
 {% endblock %}
