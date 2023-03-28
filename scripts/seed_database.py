@@ -44,7 +44,7 @@ class FakeCrochetPatternInfo:
         self.hook_size = faker.random_element(elements=("3.5mm", "4mm"))
         self.gauge = faker.random_element(elements=("20sts x 30 rows", "10sts x 10 rows"))
         self.pattern = faker.paragraph()
-        self.image = faker.image_url()
+        self.image = faker.image_url(width=300, height=300)
 
     def __repr__(self):
         return f"CrochetPattern(title={self.title}, description={self.description}, skill_level={self.skill_level}, " \
