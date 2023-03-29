@@ -30,3 +30,11 @@ def create_pattern(request):
             "region_options": _choices_to_dict(REGION_CHOICES)
         }
         return render(request, "patterns/create-pattern.html", context)
+
+
+def get_user_patterns(request):
+    patterns = request.user.crochetpattern_set.all()
+    context = {
+        "patterns": patterns
+    }
+    return render(request, "patterns/user-patterns.html", context)
