@@ -1,7 +1,8 @@
 from django.contrib import messages
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 
-from patterns.models import CrochetPatternForm, SKILL_LEVEL_CHOICES, REGION_CHOICES
+from patterns.models import CrochetPatternForm, SKILL_LEVEL_CHOICES, REGION_CHOICES, CrochetPattern
 
 
 def _choices_to_dict(choices: list[tuple[str, str]]) -> list[dict[str, str]]:
@@ -12,16 +13,15 @@ def _choices_to_dict(choices: list[tuple[str, str]]) -> list[dict[str, str]]:
     ]
 
 
-def create_pattern(request):
+def create_pattern(request) -> HttpResponse:
     if request.method == "POST":
         form = CrochetPatternForm(request.POST)
-        print(form.errors)
         if form.is_valid():
             new_pattern = form.save(commit=False)
             new_pattern.author = request.user
             new_pattern.save()
             messages.success(request, "Pattern created successfully.")
-            return redirect("/")
+            return redirect("/patterns/my-patterns")
     else:
         form = CrochetPatternForm()
         context = {
@@ -32,7 +32,41 @@ def create_pattern(request):
         return render(request, "patterns/create-pattern.html", context)
 
 
-def get_user_patterns(request):
+def edit_pattern(request, pattern_id: int) -> HttpResponse:
+    pattern = CrochetPattern.objects.get(pk=pattern_id)
+    if request.method == "POST":
+        if pattern.author != request.user:
+            messages.error(request, "You can only edit your own patterns.")
+            return redirect("/patterns/my-patterns")
+        form = CrochetPatternForm(request.POST, instance=pattern)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Pattern edited successfully.")
+            return redirect("/patterns/my-patterns")
+    else:
+        form = CrochetPatternForm(instance=pattern)
+        context = {
+            "pattern": pattern,
+            "skill_level_options": _choices_to_dict(SKILL_LEVEL_CHOICES),
+            "region_options": _choices_to_dict(REGION_CHOICES)
+        }
+        return render(request, "patterns/edit-pattern.html", context)
+
+
+def delete_pattern(request, pattern_id: int) -> HttpResponse:
+    pattern = CrochetPattern.objects.get(pk=pattern_id)
+    if request.method != "POST":
+        messages.error(request, "You can only delete patterns from the 'My Patterns' page.")
+        return redirect("/patterns/my-patterns")
+    if pattern.author != request.user:
+        messages.error(request, "You can only delete your own patterns.")
+        return redirect("/patterns/my-patterns")
+    pattern.delete()
+    messages.success(request, "Pattern deleted successfully.")
+    return redirect("/patterns/my-patterns")
+
+
+def get_user_patterns(request) -> HttpResponse:
     patterns = request.user.crochetpattern_set.all()
     context = {
         "patterns": patterns
