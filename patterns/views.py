@@ -72,3 +72,11 @@ def get_user_patterns(request) -> HttpResponse:
         "patterns": patterns
     }
     return render(request, "patterns/user-patterns.html", context)
+
+
+def view_pattern(request, pattern_id: int) -> HttpResponse:
+    pattern = CrochetPattern.objects.get(pk=pattern_id)
+    context = {
+        "pattern": pattern
+    }
+    return render(request, "patterns/view-pattern.html", context)
