@@ -26,6 +26,7 @@
                                 </figure>
                             </div>
                             <div class="media-content">
+                              <a href="{% url "view-pattern" pattern.id%}">
                                 <div class="content">
                                     <p>
                                         <strong>{{ pattern.title }}</strong>
@@ -33,7 +34,9 @@
                                         {{ pattern.description }}
                                     </p>
                                 </div>
+                              </a>
                             </div>
+
                             <div class="media-right">
                                 <button class="button is-small is-primary"
                                         onclick="location.href='{% url 'edit-pattern' pattern.id %}'"
@@ -88,6 +91,10 @@ document.querySelectorAll('.delete-button').forEach(button => {
 <style>
   .modal {
     display: none;
+  }
+
+  a, a:visited, a:hover, a:active {
+    color: inherit;
   }
 </style>
 
