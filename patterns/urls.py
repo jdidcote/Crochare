@@ -8,4 +8,5 @@ urlpatterns = [
     path('my-patterns', views.get_user_patterns, name='user-patterns'),
     path('my-patterns/delete/<int:pattern_id>', views.delete_pattern, name='delete-pattern'),
     path('<int:pattern_id>', views.view_pattern, name='view-pattern'),
+    path('browse', views.browse_patterns, name='browse-patterns'),
 ]
