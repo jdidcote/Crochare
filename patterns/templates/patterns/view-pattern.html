@@ -38,8 +38,7 @@
           <div class="field media">
             <div class="media-content">
               <p>
-                {{ pattern.description }} {{ pattern.description }} {{
-                pattern.description }} {{ pattern.description }}
+                {{ pattern.description }} {{ pattern.description }} {{pattern.description}} {{ pattern.description }}
               </p>
             </div>
           </div>
@@ -96,12 +95,7 @@
         <div class="my-6 pt-4 mx-6">
           <h3 class="title is-4">Pattern steps</h3>
           <p>
-            {% for i in "123456789" %} {{ i }}. {{ pattern.pattern }}
-              {{ pattern.pattern }}{{ pattern.pattern }}{{ pattern.pattern }}{{ pattern.pattern }}{{ pattern.pattern }}
-              {{ pattern.pattern }}{{ pattern.pattern }}{{ pattern.pattern }}{{ pattern.pattern }}
-            <br />
-            <br />
-            {% endfor %}
+            {{ pattern.pattern|safe }}
           </p>
         </div>
       </div>

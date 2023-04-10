@@ -1,7 +1,14 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% load i18n %}
+{% load widget_tweaks %}
 
 {% block content %}
+
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+    <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+
     <div class="hero is-fullheight-with-navbar">
       {% if not user.is_authenticated %}
         <div class="notification is-primary is-light has-text-centered">
@@ -108,5 +115,29 @@
         </div>
     </div>
     {% endif %}
+
+<script>
+  CKEDITOR.replace('pattern-pattern-steps', {
+      extraPlugins: 'codesnippet',
+      codeSnippet_theme: 'monokai_sublime',
+      removeButtons: 'Source',
+      removePlugins: 'elementspath',
+      resize_enabled: false,
+      height: '500px',
+      toolbar: [
+          // Add or remove toolbar items as needed
+          { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat' ] },
+          { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+          { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
+          { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote' ] },
+          { name: 'links', items: [ 'Link', 'Unlink' ] },
+          { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar' ] },
+          { name: 'tools', items: [ 'Maximize' ] },
+          { name: 'editing', items: [ 'Scayt' ] },
+          { name: 'document', items: [ 'Undo', 'Redo' ] },
+          { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText','-', 'Undo', 'Redo' ] }
+      ]
+  });
+</script>
 
 {% endblock %}

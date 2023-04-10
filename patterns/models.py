@@ -1,3 +1,4 @@
+from ckeditor.fields import RichTextField
 from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm
@@ -25,7 +26,7 @@ class CrochetPattern(models.Model):
     yarn_weight = models.CharField(max_length=100)
     hook_size = models.CharField(max_length=100)
     gauge = models.CharField(max_length=100)
-    pattern = models.TextField()
+    pattern = RichTextField(blank=True, null=True)
     image = models.ImageField(upload_to='images/', blank=True)
 
     def __str__(self):
