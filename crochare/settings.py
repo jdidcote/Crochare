@@ -59,13 +59,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'toolbar': 'full',
-    },
-}
-
-
 ROOT_URLCONF = 'crochare.urls'
 
 TEMPLATES = [
