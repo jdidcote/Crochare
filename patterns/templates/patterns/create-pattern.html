@@ -19,12 +19,23 @@
           <h1>Please log in or register to create a pattern</h1>
         </div>
       {% else %}
+
         <div class="hero-body is-justify-content-center is-align-items-center border">
-            <form action="/patterns/create-pattern" method="post">
+            {% if pattern is None %}
+                <form action="/patterns/create-pattern" method="post">
+            {% else %}
+                <form action="{% url 'edit-pattern' pattern.id %}" method="post">
+            {% endif %}
                 {% csrf_token %}
                 <div class="columns is-flex is-flex-direction-column box">
                     <div class="has-text-centered">
-                        <h3 class="is-size-4 has-text-weight-medium">New pattern</h3>
+                        <h3 class="is-size-4 has-text-weight-medium">
+                          {% if pattern is None %}
+                            New pattern
+                          {% else %}
+                            Edit pattern
+                          {% endif %}
+                        </h3>
                     </div>
 
                     <div class="column has-text-danger has-text-centered">
@@ -37,25 +48,47 @@
 
                     <div class="column">
                         <label for="pattern-name">Pattern name</label>
-                        <input class="input is-primary" type="text" name="title" id="pattern-name">
+                        <input class="input is-primary" type="text"
+                               name="title" id="pattern-name" value="{{ pattern.title }}">
                     </div>
 
                     <div class="column">
                         <label for="pattern-description">Pattern description</label>
-                        <textarea class="textarea is-primary" name="description" id="pattern-description"></textarea>
+                        <textarea class="textarea is-primary" name="description"
+                                  id="pattern-description">{{ pattern.description }}
+                        </textarea>
                     </div>
 
+                    {% if pattern is not None %}
+                      <div class="column">
+                        <label for="current-image">Current image</label>
+                        <figure class="image" id="current-image">
+                          <img style="width:20rem; height:auto; border: 2px solid black" src={{ pattern.image }}>
+                        </figure>
+                      </div>
+                    {% endif %}
+
                     <div class="column">
-                        <label for="pattern-image">Pattern image</label>
+                        <label for="pattern-image">
+                          {% if pattern is None %}
+                            Pattern image
+                          {% else %}
+                            New pattern image
+                          {% endif %}
+                        </label>
                         <input class="input is-primary" type="file" name="image" id="pattern-image">
                     </div>
 
                     <div class="column">
                         <label for="pattern-skill-level">Skill level</label>
                         <select class="input is-primary" name="skill_level" id="pattern-skill-level">
-                            {% for skill in skill_level_options %}
+                          {% for skill in skill_level_options %}
+                              {% if skill.value == pattern.skill_level %}
+                                <option value="{{ skill.value }}" selected>{{ skill.text }}</option>
+                              {% else %}
                                 <option value="{{ skill.value }}">{{ skill.text }}</option>
-                            {% endfor %}
+                              {% endif %}
+                          {% endfor %}
                         </select>
                     </div>
 
@@ -63,30 +96,39 @@
                         <label for="pattern-region">Region</label>
                         <select class="input is-primary" name="region" id="pattern-region">
                             {% for region in region_options %}
+                              {% if region.value == pattern.region %}
+                                <option value="{{ region.value }}" selected>{{ region.text }}</option>
+                              {% else %}
                                 <option value="{{ region.value }}">{{ region.text }}</option>
+                              {% endif %}
                             {% endfor %}
                         </select>
                     </div>
 
                     <div class="column">
                       <label for="pattern-yarn-weight">Yarn weight</label>
-                      <input class="input is-primary" type="text" name="yarn_weight" id="pattern-yarn-weight">
+                      <input class="input is-primary" type="text" name="yarn_weight"
+                             id="pattern-yarn-weight" value="{{ pattern.yarn_weight }}">
                     </div>
 
                     <div class="column">
                       <label for="pattern-hook-size">Hook size</label>
-                      <input class="input is-primary" type="text" name="hook_size" id="pattern-hook-size">
+                      <input class="input is-primary" type="text" name="hook_size"
+                             id="pattern-hook-size" value="{{ pattern.hook_size }}">
                     </div>
 
                     <div class="column">
                       <label for="pattern-gauge">Guage</label>
-                      <input class="input is-primary" type="text" name="gauge" id="pattern-gauge">
+                      <input class="input is-primary" type="text" name="gauge"
+                             id="pattern-gauge" value="{{ pattern.gauge }}">
                     </div>
 
                     <div class="column">
                       <label for="pattern-pattern-steps">Pattern steps</label>
-                      <textarea class="textarea is-primary" name="pattern" id="pattern-pattern-steps"></textarea>
-                      <p class="help">This needs to describe what actually goes here...</p>
+                      <textarea class="textarea is-primary" name="pattern"
+                                id="pattern-pattern-steps">
+                        {{ pattern.pattern }}
+                      </textarea>
                     </div>
 
                     <div class="column">
@@ -106,6 +148,7 @@
         removePlugins: 'elementspath',
         resize_enabled: false,
         height: '500px',
+        width: '100%',
         toolbar: [
             // Add or remove toolbar items as needed
             { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat' ] },
@@ -117,7 +160,6 @@
             { name: 'tools', items: [ 'Maximize' ] },
             { name: 'editing', items: [ 'Scayt' ] },
             { name: 'document', items: [ 'Undo', 'Redo' ] },
-            { name: 'clipboard', items: [ 'Cut', 'Copy', 'Paste', 'PasteText','-', 'Undo', 'Redo' ] }
         ]
     });
 </script>
