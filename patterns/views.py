@@ -27,7 +27,7 @@ def create_pattern(request) -> HttpResponse:
         context = {
             "form": form,
             "skill_level_options": _choices_to_dict(SKILL_LEVEL_CHOICES),
-            "region_options": _choices_to_dict(REGION_CHOICES)
+            "region_options": _choices_to_dict(REGION_CHOICES),
         }
         return render(request, "patterns/create-pattern.html", context)
 
@@ -48,9 +48,9 @@ def edit_pattern(request, pattern_id: int) -> HttpResponse:
         context = {
             "pattern": pattern,
             "skill_level_options": _choices_to_dict(SKILL_LEVEL_CHOICES),
-            "region_options": _choices_to_dict(REGION_CHOICES)
+            "region_options": _choices_to_dict(REGION_CHOICES),
         }
-        return render(request, "patterns/edit-pattern.html", context)
+        return render(request, "patterns/create-pattern.html", context)
 
 
 def delete_pattern(request, pattern_id: int) -> HttpResponse:
