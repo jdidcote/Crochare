@@ -13,7 +13,8 @@
   <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
   <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
 
-    <div class="hero is-fullheight-with-navbar">
+
+    <div class="hero is-fullheight-with-navbar custom-hero">
       {% if not user.is_authenticated %}
         <div class="notification is-primary is-light has-text-centered">
           <h1>Please log in or register to create a pattern</h1>
@@ -27,15 +28,15 @@
                 <form action="{% url 'edit-pattern' pattern.id %}" method="post">
             {% endif %}
                 {% csrf_token %}
-                <div class="columns is-flex is-flex-direction-column box">
+                <div class="columns is-flex is-flex-direction-column box form-area">
                     <div class="has-text-centered">
-                        <h3 class="is-size-4 has-text-weight-medium">
+                        <h2 class="is-size-1 has-text-weight-medium title-text">
                           {% if pattern is None %}
-                            New pattern
+                            New Pattern
                           {% else %}
-                            Edit pattern
+                            Edit Pattern
                           {% endif %}
-                        </h3>
+                        </h2>
                     </div>
 
                     <div class="column has-text-danger has-text-centered">
@@ -47,16 +48,38 @@
                     </div>
 
                     <div class="column">
-                        <label for="pattern-name">Pattern name</label>
-                        <input class="input is-primary" type="text"
+                        <input class="input form-input has-text-centered" type="text" placeholder="What's your pattern called?"
                                name="title" id="pattern-name" value="{{ pattern.title }}">
                     </div>
 
                     <div class="column">
-                        <label for="pattern-description">Pattern description</label>
-                        <textarea class="textarea is-primary" name="description"
-                                  id="pattern-description">{{ pattern.description }}
-                        </textarea>
+                        <textarea class="textarea form-input has-text-centered" rows="2"
+                                  name="description" id="pattern-description" placeholder="Describe your pattern"
+                        >{{ pattern.description }}</textarea>
+                    </div>
+
+                    <div class="column is-flex is-justify-content-space-evenly">
+                        <select class="select form-input has-text-centered mr-2" name="skill_level" id="pattern-skill-level">
+                          <option class="custom-font-select" value="" disabled selected>Select a skill level</option>
+                          {% for skill in skill_level_options %}
+                              {% if skill.value == pattern.skill_level %}
+                                <option value="{{ skill.value }}" selected>{{ skill.text }}</option>
+                              {% else %}
+                                <option value="{{ skill.value }}">{{ skill.text }}</option>
+                              {% endif %}
+                          {% endfor %}
+                        </select>
+
+                        <select class="select form-input has-text-centered ml-2 mb-2" name="region" id="pattern-region">
+                          <option value="" disabled selected>What terms are you using?</option>
+                            {% for region in region_options %}
+                              {% if region.value == pattern.region %}
+                                <option value="{{ region.value }}" selected>{{ region.text }}</option>
+                              {% else %}
+                                <option value="{{ region.value }}">{{ region.text }}</option>
+                              {% endif %}
+                            {% endfor %}
+                        </select>
                     </div>
 
                     {% if pattern is not None %}
@@ -68,72 +91,78 @@
                       </div>
                     {% endif %}
 
-                    <div class="column">
-                        <label for="pattern-image">
-                          {% if pattern is None %}
-                            Pattern image
-                          {% else %}
-                            New pattern image
-                          {% endif %}
-                        </label>
-                        <input class="input is-primary" type="file" name="image" id="pattern-image">
-                    </div>
+{#                    <div class="column">#}
+{#                        <label for="pattern-image">#}
+{#                          {% if pattern is None %}#}
+{#                            Pattern image#}
+{#                          {% else %}#}
+{#                            New pattern image#}
+{#                          {% endif %}#}
+{#                        </label>#}
+{#                        <input class="input form-input" type="file" name="image" id="pattern-image">#}
+{#                    </div>#}
 
-                    <div class="column">
-                        <label for="pattern-skill-level">Skill level</label>
-                        <select class="input is-primary" name="skill_level" id="pattern-skill-level">
-                          {% for skill in skill_level_options %}
-                              {% if skill.value == pattern.skill_level %}
-                                <option value="{{ skill.value }}" selected>{{ skill.text }}</option>
-                              {% else %}
-                                <option value="{{ skill.value }}">{{ skill.text }}</option>
-                              {% endif %}
-                          {% endfor %}
-                        </select>
-                    </div>
+                    <div class="columns mx-1">
+                      <div class="column has-text-centered">
+                        <div class="card form-input" style="height: 100%; max-width: 20rem; margin: auto;">
+                          <div class="card-content is-flex is-flex-direction-column is-justify-content-space-evenly p-1"
+                               style="height: 100%">
+                            <div>
+                              <p class="title is-2 cookie-font">Upload a picture!</p>
+                            </div>
+                            <div class="file">
+                              <label class="file-label m-auto">
+                                <input class="file-input" type="file" name="resume">
+                                <span class="file-cta">
+                                  <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                  </span>
+                                  <span class="file-label">
+                                    Choose a file…
+                                  </span>
+                                </span>
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
 
-                    <div class="column">
-                        <label for="pattern-region">Region</label>
-                        <select class="input is-primary" name="region" id="pattern-region">
-                            {% for region in region_options %}
-                              {% if region.value == pattern.region %}
-                                <option value="{{ region.value }}" selected>{{ region.text }}</option>
-                              {% else %}
-                                <option value="{{ region.value }}">{{ region.text }}</option>
-                              {% endif %}
-                            {% endfor %}
-                        </select>
-                    </div>
+                      <div class="column">
+                          <div class="field">
+                              <div class="control">
+                                <input class="input form-input has-text-centered" type="text"
+                                       name="yarn_weight" placeholder="What's the yarn weight?"
+                                       id="pattern-yarn-weight" value="{{ pattern.yarn_weight }}">
+                              </div>
+                          </div>
+                          <div class="field">
+                              <div class="control">
+                                <input class="input form-input has-text-centered" type="text" name="hook_size"
+                                       placeholder="What hook size are you using?"
+                                       id="pattern-hook-size" value="{{ pattern.hook_size }}">
+                              </div>
+                          </div>
+                        <div class="field">
+                              <div class="control">
+                                <input class="input form-input has-text-centered" type="text" name="gauge"
+                                       placeholder="What's the pattern gauge?"
+                                       id="pattern-gauge" value="{{ pattern.gauge }}">
+                              </div>
+                          </div>
+                      </div>
+                  </div>
 
-                    <div class="column">
-                      <label for="pattern-yarn-weight">Yarn weight</label>
-                      <input class="input is-primary" type="text" name="yarn_weight"
-                             id="pattern-yarn-weight" value="{{ pattern.yarn_weight }}">
-                    </div>
+                  <div class="column">
+                    <h3 class="is-size-2 has-text-weight-medium has-text-centered mb-2 cookie-font ">Pattern steps</h3>
+                    <textarea class="textarea" name="pattern"
+                              id="pattern-pattern-steps">
+                      {{ pattern.pattern }}
+                    </textarea>
+                  </div>
 
-                    <div class="column">
-                      <label for="pattern-hook-size">Hook size</label>
-                      <input class="input is-primary" type="text" name="hook_size"
-                             id="pattern-hook-size" value="{{ pattern.hook_size }}">
-                    </div>
-
-                    <div class="column">
-                      <label for="pattern-gauge">Guage</label>
-                      <input class="input is-primary" type="text" name="gauge"
-                             id="pattern-gauge" value="{{ pattern.gauge }}">
-                    </div>
-
-                    <div class="column">
-                      <label for="pattern-pattern-steps">Pattern steps</label>
-                      <textarea class="textarea is-primary" name="pattern"
-                                id="pattern-pattern-steps">
-                        {{ pattern.pattern }}
-                      </textarea>
-                    </div>
-
-                    <div class="column">
-                        <button class="button is-primary is-fullwidth" type="submit">Save pattern</button>
-                    </div>
+                  <div class="column">
+                      <button class="button is-primary is-fullwidth" type="submit">Save pattern</button>
+                  </div>
                 </div>
             </form>
         </div>
@@ -142,7 +171,6 @@
 
 <script>
     CKEDITOR.replace('pattern-pattern-steps', {
-        extraPlugins: 'codesnippet',
         codeSnippet_theme: 'monokai_sublime',
         removeButtons: 'Source',
         removePlugins: 'elementspath',
@@ -151,17 +179,70 @@
         width: '100%',
         toolbar: [
             // Add or remove toolbar items as needed
-            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat' ] },
+            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline'] },
             { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
             { name: 'colors', items: [ 'TextColor', 'BGColor' ] },
-            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'Blockquote' ] },
-            { name: 'links', items: [ 'Link', 'Unlink' ] },
-            { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar' ] },
-            { name: 'tools', items: [ 'Maximize' ] },
-            { name: 'editing', items: [ 'Scayt' ] },
-            { name: 'document', items: [ 'Undo', 'Redo' ] },
+            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList'] },
+            { name: 'links', items: [ 'Link'] },
+            { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule'] },
         ]
     });
 </script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cookie&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Copse&display=swap');
+
+  .ck.ck-editor__main>.ck-editor__editable {
+      background: black;
+      border: 5px solid red;
+      border-radius: 0;
+  }
+
+  .custom-hero {
+    max-width: 50rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .form-area {
+    background-color: #B6C0CC;
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .form-input {
+    border-radius: 15px;
+    font-family: copse;
+    border: 1px solid #283D3E;
+  }
+
+  .select {
+      width: 100%;
+  }
+
+  .form-input:hover {
+    border: 2px solid #283D3E;
+  }
+
+  .form-input:focus {
+    border: 2px solid #283D3E;
+  }
+
+  .form-input::placeholder{
+    font-family: cookie;
+    font-size: 1.5rem;
+    color: darkgrey;
+  }
+
+  .cookie-font {
+    font-family: cookie;
+  }
+
+  .title-text {
+    font-family: copse;
+    color: #283D3E;
+  }
+</style>
 
 {% endblock %}
